@@ -8,14 +8,18 @@ wb = p.workbook
 
 ##Generating A Bar Chart
 
-wb.add_worksheet(:name => "Bar Chart") do |sheet|
-  sheet.add_row ["A Simple Bar Chart"]
-  sheet.add_row ["First", "Second", "Third"]
-  sheet.add_row [1,2,3.5]
-  sheet.add_chart(Axlsx::Bar3DChart, :start_at => "A4", :end_at => "F17", :title => sheet["A1"]) do |chart|
-    chart.add_series :data => sheet["A3:C3"], :labels => sheet["A2:C2"], :colors => ['FF0000', '00FF00', '0000FF'], :color => "000000"
-    chart.valAxis.label_rotation = -45
-    chart.catAxis.label_rotation = 45
+wb.add_worksheet(name: 'Bar Chart') do |sheet|
+  sheet.add_row ['A Simple Bar Chart', 'X', 'Y', 'Z']
+  sheet.add_row ['A', 3, 4, 5]
+  sheet.add_row ['B', 10, 6, 7]
+  sheet.add_row ['C', 7, 2, 8]
+  sheet.add_chart(Axlsx::BarChart, start_at: 'A6', end_at: 'F20') do |chart|
+    chart.add_series data: sheet['B2:B4'], labels: sheet['A2:A4'], title: sheet['B1'], :colors => ['FF0000', 'FF0000', 'FF0000'], :color => "000000"
+    chart.add_series data: sheet['C2:C4'], labels: sheet['A2:A4'], title: sheet['C1'], :colors => ['00FF00', '00FF00', '00FF00'], :color => "000000"
+    chart.add_series data: sheet['D2:D4'], labels: sheet['A2:A4'], title: sheet['D1'], :colors => ['0000FF', '0000FF', '0000FF'], :color => "000000"
+    chart.bar_dir = :col
+    chart.d_lbls.show_val = true
+    chart.grouping = :standard
   end
 end
 
@@ -35,8 +39,8 @@ end
  wb.add_worksheet(:name => "Pie Chart") do |sheet|
    sheet.add_row ["First", "Second", "Third", "Fourth"]
    sheet.add_row [1, 2, 3, "=PRODUCT(A2:C2)"]
-  sheet.add_chart(Axlsx::Pie3DChart, :start_at => [0,2], :end_at => [5, 15], :title => "example 3: Pie Chart") do |chart|
-     chart.add_series :data => sheet["A2:D2"], :labels => sheet["A1:D1"], :colors => ['FF0000', '00FF00', '0000FF', '000000']
+  sheet.add_chart(Axlsx::PieChart, :start_at => [0,2], :end_at => [5, 15], :title => "example 3: Pie Chart") do |chart|
+     chart.add_series :data => sheet["A2:D2"], :labels => sheet["A1:D1"], :colors => ['FF0000', '00FF00', '0000FF', '00FFFF']
    end
  end
 
