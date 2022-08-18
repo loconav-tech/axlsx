@@ -89,7 +89,20 @@ module Axlsx
         if !@show_marker
           str << '<c:marker><c:symbol val="none"/></c:marker>'
         elsif @marker_symbol != :default
-          str << '<c:marker><c:symbol val="' + @marker_symbol.to_s + '"/></c:marker>'
+          str << '<c:marker><c:symbol val="' + @marker_symbol.to_s + '"/><c:size val="10"/>'
+          if color
+            str << '<c:spPr><a:solidFill>'
+            str << ('<a:srgbClr val="' << color << '"/>')
+            str << '</a:solidFill>'
+            str << '<a:ln w="28800">'
+            str << '<a:solidFill>'
+            str << ('<a:srgbClr val="' << color << '"/>')
+            str << '</a:solidFill>'
+            str << '</a:ln>'
+            str << '<a:round/>'
+            str << '</c:spPr>'
+          end
+          str << '</c:marker>'
         end
 
         @labels.to_xml_string(str) unless @labels.nil?
