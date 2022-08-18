@@ -145,7 +145,7 @@ module Axlsx
         str << ('<c:grouping val="' << grouping.to_s << '"/>')
         str << ('<c:varyColors val="' << vary_colors.to_s << '"/>')
         @series.select{|ser| ser.instance_of?(LineSeries)}.each { |ser| ser.to_xml_string(str) }
-        @d_lbls.to_xml_string(str) if @d_lbls
+        # @d_lbls.to_xml_string(str) if @d_lbls
         yield if block_given?
         axes.to_xml_string(str, :ids => true)
         str << ("</c:" << "lineChart" << ">")
